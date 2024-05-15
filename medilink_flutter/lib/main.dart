@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:medilink_flutter/Screens/signup_doc.dart';
+import 'package:medilink_flutter/Screens/signup_patient.dart';
 
 void main() {
   runApp(const MyApp());
@@ -19,6 +20,7 @@ class MyApp extends StatelessWidget {
       initialRoute: '/',
       routes: {
         '/': (context) => const SignupDocScreen(),
+        '/signup_patient': (context) => const SignupPatientScreen()
       },
     );
   }

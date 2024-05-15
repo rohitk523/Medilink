@@ -32,14 +32,22 @@ async def root():
     return {"message": "Hello World"}
 
 
-@app.post("/signup_doc/", response_model=schemas.User)
-def create_user(user: schemas.User, db: Session = Depends(get_db)):
+@app.post("/signup_doc/", response_model=schemas.Doctor)
+def create_doctor(doctor: schemas.Doctor, db: Session = Depends(get_db)):
     # db_user = crud.get_user_by_email(db, email=user.email)
     # if db_user:
     #     raise HTTPException(status_code=400, detail="Email already registered")
-    return crud.create_user(db=db, user=user)
+    return crud.create_doctor(db=db, doctor=doctor)
 
 
-@app.get('/doc_users')
-def get_user(db: Session = Depends(get_db)):
-    return crud.get_users(db=db)
+@app.post("/signup_patient/", response_model=schemas.Patient)
+def create_patient(patient: schemas.Patient, db: Session = Depends(get_db)):
+    # db_user = crud.get_user_by_email(db, email=user.email)
+    # if db_user:
+    #     raise HTTPException(status_code=400, detail="Email already registered")
+    return crud.create_patient(db=db, patient=patient)
+
+
+@app.get('/get_doctors')
+def get_doctors(db: Session = Depends(get_db)):
+    return crud.get_doctors(db=db)

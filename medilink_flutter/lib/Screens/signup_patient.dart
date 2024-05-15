@@ -2,34 +2,38 @@ import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
 import 'dart:convert';
 
-class SignupDocScreen extends StatefulWidget {
-  const SignupDocScreen({Key? key}) : super(key: key);
+class SignupPatientScreen extends StatefulWidget {
+  const SignupPatientScreen({Key? key}) : super(key: key);
 
   @override
-  _SignupDocScreenState createState() => _SignupDocScreenState();
+  _SignupPatientScreenState createState() => _SignupPatientScreenState();
 }
 
-class _SignupDocScreenState extends State<SignupDocScreen> {
-  final TextEditingController _usernameController = TextEditingController();
-  final TextEditingController _passwordController = TextEditingController();
+class _SignupPatientScreenState extends State<SignupPatientScreen> {
+  final TextEditingController _name = TextEditingController();
+  final TextEditingController _contact = TextEditingController();
+  final TextEditingController _age = TextEditingController();
+  final TextEditingController _city = TextEditingController();
 
   Future<void> _submitForm() async {
-    final String username = _usernameController.text.trim();
-    final String password = _passwordController.text.trim();
+    final String name = _name.text.trim();
+    final String contact = _contact.text.trim();
+    final String age = _age.text.trim();
+    final String city = _city.text.trim();
 
     final Map<String, String> headers = {'Content-Type': 'application/json'};
 
-    final Uri url = Uri.parse('http://localhost:8000/signup_doc');
+    final Uri url = Uri.parse('http://localhost:8000/signup_patient');
 
-    final String jsonData =
-        json.encode({'username': username, 'password': password});
+    final String jsonData = json
+        .encode({'name': name, 'contact': contact, 'age': age, 'city': city});
 
     final http.Response response =
         await http.post(url, headers: headers, body: jsonData);
 
     if (response.statusCode == 200) {
-      print('Doctor added successfully');
-      Navigator.pushReplacementNamed(context, '/signup_patient');
+      print('Patient added successfully');
+      // Navigator.pushReplacementNamed(context, '/patient');
     } else {
       print('Error: ${response.statusCode}');
     }
@@ -39,23 +43,13 @@ class _SignupDocScreenState extends State<SignupDocScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text('Signup Doctor'),
+        title: const Text('Signup Patient'),
       ),
       body: Center(
         child: Row(
           mainAxisAlignment: MainAxisAlignment.center,
           crossAxisAlignment: CrossAxisAlignment.center,
           children: [
-            // Flexible(
-            //   flex: 1,
-            //   child: Image.asset(
-            //     'images/niggatron.png', // Replace with your image path
-            //     width: 200,
-            //     height: 200,
-            //     fit: BoxFit.cover,
-            //   ),
-            // ),
-            // const SizedBox(width: 20),
             Flexible(
               flex: 1,
               child: Container(
@@ -75,13 +69,22 @@ class _SignupDocScreenState extends State<SignupDocScreen> {
                     ),
                     const SizedBox(height: 20.0),
                     TextField(
-                      controller: _usernameController,
-                      decoration: const InputDecoration(labelText: 'Username'),
+                      controller: _name,
+                      decoration: const InputDecoration(labelText: 'Name'),
                     ),
                     const SizedBox(height: 10.0),
                     TextField(
-                      controller: _passwordController,
-                      decoration: const InputDecoration(labelText: 'Password'),
+                      controller: _contact,
+                      decoration: const InputDecoration(labelText: 'Contact'),
+                    ),
+                    TextField(
+                      controller: _age,
+                      decoration: const InputDecoration(labelText: 'Age'),
+                    ),
+                    const SizedBox(height: 10.0),
+                    TextField(
+                      controller: _city,
+                      decoration: const InputDecoration(labelText: 'City'),
                     ),
                     const SizedBox(height: 20.0),
                     ElevatedButton(

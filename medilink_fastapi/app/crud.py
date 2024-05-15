@@ -11,3 +11,5 @@ def create_user(db: Session, user: schemas.User):
     return db_user
 
 
+def get_users(db: Session):
+    return db.query(models.User).all()

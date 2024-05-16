@@ -33,7 +33,7 @@ class _SignupPatientScreenState extends State<SignupPatientScreen> {
 
     if (response.statusCode == 200) {
       print('Patient added successfully');
-      // Navigator.pushReplacementNamed(context, '/patient');
+      Navigator.pushReplacementNamed(context, '/homepage');
     } else {
       print('Error: ${response.statusCode}');
     }

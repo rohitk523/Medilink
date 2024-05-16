@@ -25,35 +25,3 @@ class MyApp extends StatelessWidget {
     );
   }
 }
-
-class HomeScreen extends StatelessWidget {
-  const HomeScreen({Key? key}) : super(key: key);
-
-  @override
-  Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(
-        title: const Text('Home'),
-      ),
-      body: Center(
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: [
-            ElevatedButton(
-              onPressed: () {
-                Navigator.pushNamed(context, '/add_user');
-              },
-              child: const Text('I am a User'),
-            ),
-            ElevatedButton(
-              onPressed: () {
-                Navigator.pushNamed(context, '/add_doc');
-              },
-              child: const Text('I am a Doctor'),
-            ),
-          ],
-        ),
-      ),
-    );
-  }
-}

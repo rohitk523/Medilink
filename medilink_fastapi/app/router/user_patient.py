@@ -5,7 +5,7 @@ from fastapi import APIRouter
 from .. import schemas, crud
 
 
-router = APIRouter(tags=["Login"],)
+router = APIRouter(tags=["Patient"],)
 
 
 # Dependency

@@ -10,32 +10,55 @@ class SignupPatientScreen extends StatefulWidget {
 }
 
 class _SignupPatientScreenState extends State<SignupPatientScreen> {
-  final TextEditingController _name = TextEditingController();
   final TextEditingController _contact = TextEditingController();
-  final TextEditingController _age = TextEditingController();
-  final TextEditingController _city = TextEditingController();
+  final TextEditingController _otp = TextEditingController();
 
-  Future<void> _submitForm() async {
-    final String name = _name.text.trim();
+  Future<void> _requestotp() async {
     final String contact = _contact.text.trim();
-    final String age = _age.text.trim();
-    final String city = _city.text.trim();
 
     final Map<String, String> headers = {'Content-Type': 'application/json'};
 
-    final Uri url = Uri.parse('http://localhost:8000/signup_patient');
+    final Uri url = Uri.parse('http://localhost:8000/generate_otp/');
 
-    final String jsonData = json
-        .encode({'name': name, 'contact': contact, 'age': age, 'city': city});
+    final String jsonData = json.encode({'contact_number': contact});
 
     final http.Response response =
         await http.post(url, headers: headers, body: jsonData);
 
     if (response.statusCode == 200) {
-      print('Patient added successfully');
+      print('OTP requested successfully');
+      // Optionally, you can show a message to the user that OTP has been sent
+    } else {
+      print('Error requesting OTP: ${response.statusCode}');
+      // Handle error, such as displaying an error message to the user
+    }
+  }
+
+  Future<void> _submitForm() async {
+    final String contact = _contact.text.trim();
+    final String otp = _otp.text.trim();
+
+    final Map<String, String> headers = {'Content-Type': 'application/json'};
+
+    final Uri url = Uri.parse('http://localhost:8000/login_with_otp/');
+
+    final String jsonData =
+        json.encode({'contact_number': contact, 'otp': otp});
+
+    final http.Response response =
+        await http.post(url, headers: headers, body: jsonData);
+
+    if (response.statusCode == 200) {
+      print(
+          'Login successful'); // Assuming the backend returns a 200 status code for successful login
       Navigator.pushReplacementNamed(context, '/homepage');
+    } else if (response.statusCode == 404) {
+      print('OTP not found'); // Handle OTP not found error
+    } else if (response.statusCode == 401) {
+      print('Invalid OTP'); // Handle invalid OTP error
     } else {
       print('Error: ${response.statusCode}');
+      // Handle other errors, such as displaying an error message to the user
     }
   }
 
@@ -69,24 +92,19 @@ class _SignupPatientScreenState extends State<SignupPatientScreen> {
                     ),
                     const SizedBox(height: 20.0),
                     TextField(
-                      controller: _name,
-                      decoration: const InputDecoration(labelText: 'Name'),
-                    ),
-                    const SizedBox(height: 10.0),
-                    TextField(
                       controller: _contact,
                       decoration: const InputDecoration(labelText: 'Contact'),
                     ),
+                    const SizedBox(height: 20.0),
                     TextField(
-                      controller: _age,
-                      decoration: const InputDecoration(labelText: 'Age'),
-                    ),
-                    const SizedBox(height: 10.0),
-                    TextField(
-                      controller: _city,
-                      decoration: const InputDecoration(labelText: 'City'),
+                      controller: _otp,
+                      decoration: const InputDecoration(labelText: 'OTP'),
                     ),
                     const SizedBox(height: 20.0),
+                    ElevatedButton(
+                      onPressed: _requestotp,
+                      child: const Text('Request OTP'),
+                    ),
                     ElevatedButton(
                       onPressed: _submitForm,
                       child: const Text('Signup'),

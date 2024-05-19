@@ -29,7 +29,7 @@ class _SignupDocScreenState extends State<SignupDocScreen> {
 
     if (response.statusCode == 200) {
       print('Doctor added successfully');
-      Navigator.pushReplacementNamed(context, '/signup_patient');
+      Navigator.pushReplacementNamed(context, '/login_patient');
     } else {
       print('Error: ${response.statusCode}');
     }

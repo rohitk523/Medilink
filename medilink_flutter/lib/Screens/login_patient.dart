@@ -2,14 +2,14 @@ import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
 import 'dart:convert';
 
-class SignupPatientScreen extends StatefulWidget {
-  const SignupPatientScreen({Key? key}) : super(key: key);
+class LogInPatientScreen extends StatefulWidget {
+  const LogInPatientScreen({Key? key}) : super(key: key);
 
   @override
-  _SignupPatientScreenState createState() => _SignupPatientScreenState();
+  _LogInPatientScreenState createState() => _LogInPatientScreenState();
 }
 
-class _SignupPatientScreenState extends State<SignupPatientScreen> {
+class _LogInPatientScreenState extends State<LogInPatientScreen> {
   final TextEditingController _contact = TextEditingController();
   final TextEditingController _otp = TextEditingController();
 
@@ -66,7 +66,7 @@ class _SignupPatientScreenState extends State<SignupPatientScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text('Signup Patient'),
+        title: const Text('Login Patient'),
       ),
       body: Center(
         child: Row(

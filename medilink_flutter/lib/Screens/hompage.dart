@@ -26,7 +26,7 @@ class HomePage extends StatelessWidget {
                   leading: Icon(menuItems[index]['icon']),
                   title: Text(
                     menuItems[index]['name'],
-                    style: TextStyle(fontSize: 12),
+                    style: const TextStyle(fontSize: 12),
                   ),
                   onTap: () {
                     // Handle menu item tap

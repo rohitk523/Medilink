@@ -1,7 +1,7 @@
-import 'package:fitness_dashboard_ui/util/responsive.dart';
-import 'package:fitness_dashboard_ui/widgets/dashboard_widget.dart';
-import 'package:fitness_dashboard_ui/widgets/side_menu_widget.dart';
-import 'package:fitness_dashboard_ui/widgets/summary_widget.dart';
+import 'package:medilink_flutter/util/responsive.dart';
+import 'package:medilink_flutter/widgets/dashboard_widget.dart';
+import 'package:medilink_flutter/widgets/side_menu_widget.dart';
+import 'package:medilink_flutter/widgets/summary_widget.dart';
 import 'package:flutter/material.dart';
 
 class MainScreen extends StatelessWidget {
@@ -28,18 +28,18 @@ class MainScreen extends StatelessWidget {
         child: Row(
           children: [
             if (isDesktop)
-              Expanded(
+              const Expanded(
                 flex: 2,
                 child: SizedBox(
                   child: SideMenuWidget(),
                 ),
               ),
-            Expanded(
+            const Expanded(
               flex: 7,
               child: DashboardWidget(),
             ),
             if (isDesktop)
-              Expanded(
+              const Expanded(
                 flex: 3,
                 child: SummaryWidget(),
               ),

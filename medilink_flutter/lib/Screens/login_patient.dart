@@ -3,9 +3,10 @@ import 'package:http/http.dart' as http;
 import 'dart:convert';
 
 class LogInPatientScreen extends StatefulWidget {
-  const LogInPatientScreen({Key? key}) : super(key: key);
+  const LogInPatientScreen({super.key});
 
   @override
+  // ignore: library_private_types_in_public_api
   _LogInPatientScreenState createState() => _LogInPatientScreenState();
 }
 

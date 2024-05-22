@@ -1,4 +1,4 @@
-import 'package:fitness_dashboard_ui/model/graph_model.dart';
+import 'package:medilink_flutter/model/graph_model.dart';
 import 'package:flutter/material.dart';
 
 class BarGraphModel {

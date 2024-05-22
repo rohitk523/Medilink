@@ -1,6 +1,6 @@
-import 'package:fitness_dashboard_ui/const/constant.dart';
-import 'package:fitness_dashboard_ui/data/line_chart_data.dart';
-import 'package:fitness_dashboard_ui/widgets/custom_card_widget.dart';
+import 'package:medilink_flutter/const/constant.dart';
+import 'package:medilink_flutter/data/line_chart_data.dart';
+import 'package:medilink_flutter/widgets/custom_card_widget.dart';
 import 'package:fl_chart/fl_chart.dart';
 import 'package:flutter/material.dart';
 
@@ -15,7 +15,7 @@ class LineChartCard extends StatelessWidget {
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          Text(
+          const Text(
             "Steps Overview",
             style: TextStyle(fontSize: 14, fontWeight: FontWeight.w500),
           ),

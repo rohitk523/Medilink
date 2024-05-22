@@ -3,14 +3,14 @@ import 'package:http/http.dart' as http;
 import 'dart:convert';
 import 'package:awesome_snackbar_content/awesome_snackbar_content.dart';
 
-class SignupDocScreen extends StatefulWidget {
-  const SignupDocScreen({Key? key}) : super(key: key);
+class LoginDocScreen extends StatefulWidget {
+  const LoginDocScreen({Key? key}) : super(key: key);
 
   @override
-  _SignupDocScreenState createState() => _SignupDocScreenState();
+  _LoginDocScreenState createState() => _LoginDocScreenState();
 }
 
-class _SignupDocScreenState extends State<SignupDocScreen> {
+class _LoginDocScreenState extends State<LoginDocScreen> {
   final TextEditingController _usernameController = TextEditingController();
   final TextEditingController _passwordController = TextEditingController();
 
@@ -20,7 +20,7 @@ class _SignupDocScreenState extends State<SignupDocScreen> {
 
     final Map<String, String> headers = {'Content-Type': 'application/json'};
 
-    final Uri url = Uri.parse('http://localhost:8000/signup_doc');
+    final Uri url = Uri.parse('http://localhost:8000/login_doc');
 
     final String jsonData =
         json.encode({'username': username, 'password': password});
@@ -29,10 +29,11 @@ class _SignupDocScreenState extends State<SignupDocScreen> {
         await http.post(url, headers: headers, body: jsonData);
 
     if (response.statusCode == 200) {
-      _showSnackbar('Doctor added successfully', ContentType.success);
+      _showSnackbar('Login successful', ContentType.success);
       Navigator.pushReplacementNamed(context, '/signup_login_patient');
     } else {
-      _showSnackbar('Error: ${response.statusCode}', ContentType.failure);
+      _showSnackbar(
+          'Login failed: ${response.statusCode}', ContentType.failure);
     }
   }
 
@@ -55,7 +56,7 @@ class _SignupDocScreenState extends State<SignupDocScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text('Signup Doctor'),
+        title: const Text('Login Doctor'),
       ),
       body: Center(
         child: Row(
@@ -75,7 +76,7 @@ class _SignupDocScreenState extends State<SignupDocScreen> {
                   mainAxisSize: MainAxisSize.min,
                   children: [
                     const Text(
-                      'Signup',
+                      'Login',
                       style:
                           TextStyle(fontSize: 24, fontWeight: FontWeight.bold),
                     ),
@@ -88,11 +89,12 @@ class _SignupDocScreenState extends State<SignupDocScreen> {
                     TextField(
                       controller: _passwordController,
                       decoration: const InputDecoration(labelText: 'Password'),
+                      obscureText: true,
                     ),
                     const SizedBox(height: 20.0),
                     ElevatedButton(
                       onPressed: _submitForm,
-                      child: const Text('Signup'),
+                      child: const Text('Login'),
                     ),
                   ],
                 ),

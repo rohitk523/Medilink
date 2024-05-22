@@ -1,15 +1,15 @@
 import 'package:flutter/material.dart';
-import 'package:medilink_flutter/Screens/login_patient.dart';
-import 'package:medilink_flutter/Screens/signup_patient';
+import 'package:medilink_flutter/Screens/signup_doc.dart';
+import 'package:medilink_flutter/Screens/login_doc.dart';
 
-class SignupLoginPatient extends StatefulWidget {
-  const SignupLoginPatient({super.key});
+class SignupLoginDoc extends StatefulWidget {
+  const SignupLoginDoc({Key? key}) : super(key: key);
 
   @override
-  State<SignupLoginPatient> createState() => _SignupLoginPatientState();
+  _SignupLoginDocState createState() => _SignupLoginDocState();
 }
 
-class _SignupLoginPatientState extends State<SignupLoginPatient> {
+class _SignupLoginDocState extends State<SignupLoginDoc> {
   bool _isSignUp = false; // Initially set to true for signup
 
   // Method to toggle between signup and login
@@ -26,9 +26,7 @@ class _SignupLoginPatientState extends State<SignupLoginPatient> {
         title: Text(_isSignUp ? 'Signup' : 'Login'), // Displaying dynamic title
       ),
       body: Center(
-        child: _isSignUp
-            ? const SignupPatientScreen()
-            : const LogInPatientScreen(),
+        child: _isSignUp ? const SignupDocScreen() : const LoginDocScreen(),
       ),
       floatingActionButton: FloatingActionButton(
         onPressed: toggleSignupLogin,

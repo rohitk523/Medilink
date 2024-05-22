@@ -1,12 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
 import 'dart:convert';
+import 'package:awesome_snackbar_content/awesome_snackbar_content.dart';
 
 class LogInPatientScreen extends StatefulWidget {
   const LogInPatientScreen({super.key});
 
   @override
-  // ignore: library_private_types_in_public_api
   _LogInPatientScreenState createState() => _LogInPatientScreenState();
 }
 
@@ -27,11 +27,10 @@ class _LogInPatientScreenState extends State<LogInPatientScreen> {
         await http.post(url, headers: headers, body: jsonData);
 
     if (response.statusCode == 200) {
-      print('OTP requested successfully');
-      // Optionally, you can show a message to the user that OTP has been sent
+      _showSnackbar('OTP requested successfully', ContentType.success);
     } else {
-      print('Error requesting OTP: ${response.statusCode}');
-      // Handle error, such as displaying an error message to the user
+      _showSnackbar(
+          'Error requesting OTP: ${response.statusCode}', ContentType.failure);
     }
   }
 
@@ -50,24 +49,37 @@ class _LogInPatientScreenState extends State<LogInPatientScreen> {
         await http.post(url, headers: headers, body: jsonData);
 
     if (response.statusCode == 200) {
-      print(
-          'Login successful'); // Assuming the backend returns a 200 status code for successful login
+      _showSnackbar('Login successful', ContentType.success);
       Navigator.pushReplacementNamed(context, '/homepage');
     } else if (response.statusCode == 404) {
-      print('OTP not found'); // Handle OTP not found error
+      _showSnackbar('OTP not found', ContentType.failure);
     } else if (response.statusCode == 401) {
-      print('Invalid OTP'); // Handle invalid OTP error
+      _showSnackbar('Invalid OTP', ContentType.failure);
     } else {
-      print('Error: ${response.statusCode}');
-      // Handle other errors, such as displaying an error message to the user
+      _showSnackbar('Error: ${response.statusCode}', ContentType.failure);
     }
+  }
+
+  void _showSnackbar(String message, ContentType contentType) {
+    final snackBar = SnackBar(
+      elevation: 0,
+      behavior: SnackBarBehavior.floating,
+      backgroundColor: Colors.transparent,
+      content: AwesomeSnackbarContent(
+        title: contentType == ContentType.success ? 'Success!' : 'Error!',
+        message: message,
+        contentType: contentType,
+      ),
+    );
+
+    ScaffoldMessenger.of(context).showSnackBar(snackBar);
   }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text('Login Patient'),
+        title: const Text('Patient Log In'),
       ),
       body: Center(
         child: Row(
@@ -87,28 +99,30 @@ class _LogInPatientScreenState extends State<LogInPatientScreen> {
                   mainAxisSize: MainAxisSize.min,
                   children: [
                     const Text(
-                      'LogIn',
+                      'Log In',
                       style:
                           TextStyle(fontSize: 24, fontWeight: FontWeight.bold),
                     ),
                     const SizedBox(height: 20.0),
                     TextField(
                       controller: _contact,
-                      decoration: const InputDecoration(labelText: 'Contact'),
+                      decoration:
+                          const InputDecoration(labelText: 'Contact Number'),
                     ),
-                    const SizedBox(height: 20.0),
+                    const SizedBox(height: 10.0),
                     TextField(
                       controller: _otp,
                       decoration: const InputDecoration(labelText: 'OTP'),
                     ),
                     const SizedBox(height: 20.0),
                     ElevatedButton(
+                      onPressed: _submitForm,
+                      child: const Text('Login'),
+                    ),
+                    const SizedBox(height: 20.0),
+                    ElevatedButton(
                       onPressed: _requestotp,
                       child: const Text('Request OTP'),
-                    ),
-                    ElevatedButton(
-                      onPressed: _submitForm,
-                      child: const Text('LogIn'),
                     ),
                   ],
                 ),

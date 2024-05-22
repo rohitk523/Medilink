@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:medilink_flutter/Screens/hompage.dart';
 import 'package:medilink_flutter/Screens/main_screen.dart';
+import 'package:medilink_flutter/Screens/signup_login_doc.dart';
 import 'package:medilink_flutter/Screens/signup_login_patient.dart';
 
 void main() {
@@ -21,9 +22,9 @@ class MyApp extends StatelessWidget {
       ),
       initialRoute: '/',
       routes: {
-        '/': (context) => const MainScreen(),
+        '/': (context) => const SignupLoginDoc(),
         '/signup_login_patient': (context) => const SignupLoginPatient(),
-        // '/homepage': (context) => const HomePage()
+        '/homepage': (context) => const MainScreen()
       },
     );
   }

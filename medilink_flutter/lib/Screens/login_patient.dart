@@ -86,7 +86,7 @@ class _LogInPatientScreenState extends State<LogInPatientScreen> {
                   mainAxisSize: MainAxisSize.min,
                   children: [
                     const Text(
-                      'Signup',
+                      'LogIn',
                       style:
                           TextStyle(fontSize: 24, fontWeight: FontWeight.bold),
                     ),
@@ -107,7 +107,7 @@ class _LogInPatientScreenState extends State<LogInPatientScreen> {
                     ),
                     ElevatedButton(
                       onPressed: _submitForm,
-                      child: const Text('Signup'),
+                      child: const Text('LogIn'),
                     ),
                   ],
                 ),

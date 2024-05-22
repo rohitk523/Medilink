@@ -17,10 +17,14 @@ def get_db():
 
 @router.post("/signup_doc/", response_model=schemas.Doctor)
 def create_doctor(doctor: schemas.Doctor, db: Session = Depends(get_db)):
-    # db_user = crud.get_user_by_email(db, email=user.email)
-    # if db_user:
-    #     raise HTTPException(status_code=400, detail="Email already registered")
     return crud.create_doctor(db=db, doctor=doctor)
+
+@router.post("/login_doc/")
+def login_doctor(login_data: schemas.Doctor, db: Session = Depends(get_db)):
+    doctor = crud.get_doctor_by_username(db, username=login_data.username)
+    if not doctor or not crud.verify_password(login_data.password, doctor.password):
+        raise HTTPException(status_code=400, detail="Invalid username or password")
+    return {"Login Successfull"}
 
 
 @router.get('/get_doctors')

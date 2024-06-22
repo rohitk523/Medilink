@@ -19,7 +19,8 @@ class _SignupPatientScreenState extends State<SignupPatientScreen> {
   Future<void> _submitForm() async {
     final String name = _nameController.text.trim();
     final String contact = _contactController.text.trim();
-    final int age = int.tryParse(_ageController.text.trim()) ?? 0; // Handle age input as integer
+    final int age = int.tryParse(_ageController.text.trim()) ??
+        0; // Handle age input as integer
     final String city = _cityController.text.trim();
 
     final Map<String, String> headers = {'Content-Type': 'application/json'};
@@ -122,4 +123,3 @@ class _SignupPatientScreenState extends State<SignupPatientScreen> {
     );
   }
 }
-

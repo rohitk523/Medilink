@@ -1,6 +1,7 @@
 from sqlalchemy.orm import Session
 from . import models, schemas
 from passlib.context import CryptContext
+import uuid
 
 pwd_context = CryptContext(schemes=["bcrypt"], deprecated="auto")
 
@@ -23,7 +24,8 @@ def verify_password(plain_password, hashed_password):
 
 
 def create_patient(db: Session, patient: schemas.Patient):
-    db_patient = models.Patient(name=patient.name, contact=patient.contact, age=patient.age, city=patient.city)
+    id = str(uuid.uuid4())
+    db_patient = models.Patient(id= id, name=patient.name, contact=patient.contact, age=patient.age, city=patient.city)
     db.add(db_patient)
     db.commit()
     db.refresh(db_patient)

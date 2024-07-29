@@ -4,3 +4,5 @@ uvicorn
 sqlalchemy
 pyotp
 twilio
+passlib
+psycopg2-binary

@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:medilink_flutter/Screens/main_screen.dart';
-import 'package:medilink_flutter/Screens/signup_login_doc.dart';
 import 'package:medilink_flutter/Screens/signup_login_patient.dart';
 
 void main() {

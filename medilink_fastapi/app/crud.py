@@ -1,7 +1,12 @@
 from sqlalchemy.orm import Session
+from fastapi import HTTPException
 from . import models, schemas
 from passlib.context import CryptContext
 import uuid
+import bcrypt
+from .schemas import PatientCreate
+from .models import Patient
+
 
 pwd_context = CryptContext(schemes=["bcrypt"], deprecated="auto")
 
@@ -23,12 +28,21 @@ def verify_password(plain_password, hashed_password):
     return pwd_context.verify(plain_password, hashed_password)
 
 
-def create_patient(db: Session, patient: schemas.Patient):
-    id = str(uuid.uuid4())
-    db_patient = models.Patient(id= id, name=patient.name, contact=patient.contact, age=patient.age, city=patient.city)
+def create_patient(db: Session, patient: PatientCreate):
+    if patient.password != patient.confirm_password:
+        raise HTTPException(status_code=400, detail="Passwords do not match")
+    
+    hashed_password = bcrypt.hashpw(patient.password.encode('utf-8'), bcrypt.gensalt()).decode('utf-8')
+    
+    db_patient = Patient(
+        username=patient.username,
+        password=hashed_password,
+    )
+    
     db.add(db_patient)
     db.commit()
     db.refresh(db_patient)
+    
     return db_patient
 
 

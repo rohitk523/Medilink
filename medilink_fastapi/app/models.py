@@ -1,6 +1,6 @@
 from sqlalchemy import Boolean, Column, ForeignKey, Integer, String
 from sqlalchemy.orm import relationship
-
+import uuid
 from .database import Base
 
 class Doctor(Base):
@@ -13,8 +13,6 @@ class Doctor(Base):
 
 class Patient(Base):
     __tablename__ = "patients"
-    id = Column(String, primary_key=True)
-    name = Column(String, unique=True, index=True)
-    contact = Column(String)
-    age = Column(Integer)
-    city = Column(String)
+    id = Column(String, primary_key=True, default=lambda: str(uuid.uuid4()))
+    username = Column(String, unique=True, index=True)
+    password = Column(String)

@@ -1,5 +1,5 @@
 from pydantic import BaseModel
-
+from typing import Optional
 
 class Doctor(BaseModel):
     username: str
@@ -9,11 +9,12 @@ class Doctor(BaseModel):
         orm_mode = True
 
 
-class Patient(BaseModel):
-    name: str
-    contact: str
-    age: int
-    city: str
+class PatientCreate(BaseModel):
+    username: str
+    password: str
+    confirm_password: Optional[str] = None
 
     class Config:
         orm_mode = True
+
+

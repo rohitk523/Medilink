@@ -10,6 +10,7 @@ from pydantic import BaseModel
 from .database import get_db
 from sqlalchemy.orm import Session
 from .models import Patient
+from .schemas import PatientCreate
 
 # to get a string like this run:
 # openssl rand -hex 32
@@ -40,6 +41,23 @@ pwd_context = CryptContext(schemes=["bcrypt"], deprecated="auto")
 oauth2_scheme = OAuth2PasswordBearer(tokenUrl="token")
 
 router = APIRouter(tags=["Authentication(Login)"],)
+
+
+
+
+
+def get_patient_by_username(db: Session, username: str):
+    return db.query(Patient).filter(Patient.username == username).first()
+
+def login_patient(db: Session, patient_login: PatientCreate):
+    patient = get_patient_by_username(db, patient_login.username)
+    if not patient:
+        raise HTTPException(status_code=400, detail="Invalid username or password")
+    
+    if not verify_password(patient_login.password, patient.password):
+        raise HTTPException(status_code=400, detail="Invalid username or password")
+    
+    return patient
 
 
 def verify_password(plain_password, hashed_password):

@@ -67,7 +67,22 @@ class _ProfileInfoScreenState extends State<ProfileInfoScreen> {
                       ),
                       SizedBox(height: 10),
                       Text(
-                        'Username: ${userInfo!['username']}',
+                        'username: ${userInfo!['username']}',
+                        style: TextStyle(fontSize: 20),
+                      ),
+                      SizedBox(height: 10),
+                      Text(
+                        'dob: ${userInfo!['dob']}',
+                        style: TextStyle(fontSize: 20),
+                      ),
+                      SizedBox(height: 10),
+                      Text(
+                        'height: ${userInfo!['height']}',
+                        style: TextStyle(fontSize: 20),
+                      ),
+                      SizedBox(height: 10),
+                      Text(
+                        'weight: ${userInfo!['weight']}',
                         style: TextStyle(fontSize: 20),
                       ),
                       // Add more fields as necessary

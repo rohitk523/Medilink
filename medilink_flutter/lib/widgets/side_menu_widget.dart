@@ -1,6 +1,7 @@
+import 'package:flutter/material.dart';
 import 'package:medilink_flutter/const/constant.dart';
 import 'package:medilink_flutter/data/side_menu_data.dart';
-import 'package:flutter/material.dart';
+import 'package:medilink_flutter/model/menu_model.dart';
 
 class SideMenuWidget extends StatefulWidget {
   const SideMenuWidget({super.key});
@@ -19,14 +20,17 @@ class _SideMenuWidgetState extends State<SideMenuWidget> {
     return Container(
       padding: const EdgeInsets.symmetric(vertical: 80, horizontal: 20),
       color: const Color(0xFF171821),
-      child: ListView.builder(
-        itemCount: data.menu.length,
-        itemBuilder: (context, index) => buildMenuEntry(data, index),
+      child: ListView(
+        children: data.menu.asMap().entries.map((entry) {
+          final index = entry.key;
+          final menuItem = entry.value;
+          return buildMenuEntry(menuItem, index, context);
+        }).toList(),
       ),
     );
   }
 
-  Widget buildMenuEntry(SideMenuData data, int index) {
+  Widget buildMenuEntry(MenuModel menuItem, int index, BuildContext context) {
     final isSelected = selectedIndex == index;
 
     return Container(
@@ -38,20 +42,32 @@ class _SideMenuWidgetState extends State<SideMenuWidget> {
         color: isSelected ? selectionColor : Colors.transparent,
       ),
       child: InkWell(
-        onTap: () => setState(() {
-          selectedIndex = index;
-        }),
+        onTap: () {
+          setState(() {
+            selectedIndex = index;
+          });
+
+          // Call the function if it is provided
+          menuItem.function?.call();
+
+          // Special case for LogOut: perform navigation to login page
+          if (menuItem.title == 'LogOut') {
+            Navigator.pushReplacementNamed(context, '/login');
+          } else if (menuItem.title == 'Profile') {
+            Navigator.pushReplacementNamed(context, '/profile');
+          }
+        },
         child: Row(
           children: [
             Padding(
               padding: const EdgeInsets.symmetric(horizontal: 13, vertical: 7),
               child: Icon(
-                data.menu[index].icon,
+                menuItem.icon,
                 color: isSelected ? Colors.black : Colors.grey,
               ),
             ),
             Text(
-              data.menu[index].title,
+              menuItem.title,
               style: TextStyle(
                 fontSize: 16,
                 color: isSelected ? Colors.black : Colors.grey,

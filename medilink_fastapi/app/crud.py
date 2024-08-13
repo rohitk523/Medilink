@@ -4,7 +4,7 @@ from . import models, schemas
 from passlib.context import CryptContext
 import uuid
 import bcrypt
-from .schemas import PatientCreate
+from .schemas import PatientData
 from .models import Patient
 
 
@@ -28,7 +28,7 @@ def verify_password(plain_password, hashed_password):
     return pwd_context.verify(plain_password, hashed_password)
 
 
-def create_patient(db: Session, patient: PatientCreate):
+def create_patient(db: Session, patient: PatientData):
     if patient.password != patient.confirm_password:
         raise HTTPException(status_code=400, detail="Passwords do not match")
     
@@ -37,6 +37,9 @@ def create_patient(db: Session, patient: PatientCreate):
     db_patient = Patient(
         username=patient.username,
         password=hashed_password,
+        dob=patient.dob,
+        height=patient.height,
+        weight=patient.weight
     )
     
     db.add(db_patient)

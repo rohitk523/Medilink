@@ -16,3 +16,6 @@ class Patient(Base):
     id = Column(String, primary_key=True, default=lambda: str(uuid.uuid4()))
     username = Column(String, unique=True, index=True)
     password = Column(String)
+    dob = Column(String)
+    height = Column(String)
+    weight = Column(String)

@@ -4,8 +4,7 @@ from sqlalchemy.orm import Session
 from ..database import SessionLocal
 from fastapi import APIRouter
 from .. import schemas, crud
-from ..models import Patient
-from ..schemas import PatientCreate, PatientLogin
+from ..schemas import PatientData, PatientLogin
 from ..auth import User, get_current_user, login_patient
 
 router = APIRouter(tags=["Patient"],)
@@ -22,8 +21,8 @@ def get_db():
 
 # , current_user: Patient = Depends(get_current_user)
 
-@router.post("/signup_patient/", response_model=PatientCreate)
-def create_patient_route(patient: PatientCreate, db: Session = Depends(get_db)):
+@router.post("/signup_patient/", response_model=PatientData)
+def create_patient_route(patient: PatientData, db: Session = Depends(get_db)):
     # You might want to check if the username already exists
     db_patient = crud.create_patient(db=db, patient=patient)
     return db_patient

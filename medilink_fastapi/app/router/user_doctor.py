@@ -1,18 +1,10 @@
 from fastapi import HTTPException, Depends
 from sqlalchemy.orm import Session
-from ..database import SessionLocal
+from ..database import SessionLocal, get_db
 from fastapi import APIRouter
 from .. import schemas, crud
 
 router = APIRouter(tags=["Doctor"],)
-
-# Dependency
-def get_db():
-    db = SessionLocal()
-    try:
-        yield db
-    finally:
-        db.close()
 
 
 @router.post("/signup_doc/", response_model=schemas.Doctor)

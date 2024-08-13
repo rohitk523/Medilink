@@ -17,6 +17,16 @@ class PatientCreate(BaseModel):
     class Config:
         orm_mode = True
 
+
+class PatientData(PatientCreate):
+    dob: str
+    height: str
+    weight: str
+
+    class Config:
+        orm_mode = True
+
+
 class PatientLogin(BaseModel):
     username: str
     password: str

@@ -11,34 +11,37 @@ class SignupPatientScreen extends StatefulWidget {
 }
 
 class _SignupPatientScreenState extends State<SignupPatientScreen> {
-  final TextEditingController _nameController = TextEditingController();
-  final TextEditingController _contactController = TextEditingController();
-  final TextEditingController _ageController = TextEditingController();
-  final TextEditingController _cityController = TextEditingController();
+  final TextEditingController _usernameController = TextEditingController();
+  final TextEditingController _passwordController = TextEditingController();
+  final TextEditingController _confirmPasswordController =
+      TextEditingController();
 
   Future<void> _submitForm() async {
-    final String name = _nameController.text.trim();
-    final String contact = _contactController.text.trim();
-    final int age = int.tryParse(_ageController.text.trim()) ??
-        0; // Handle age input as integer
-    final String city = _cityController.text.trim();
+    final String username = _usernameController.text.trim();
+    final String password = _passwordController.text.trim();
+    final String confirmPassword = _confirmPasswordController.text.trim();
+
+    // Check if password and confirm password match
+    if (password != confirmPassword) {
+      _showSnackbar('Passwords do not match', ContentType.failure);
+      return;
+    }
 
     final Map<String, String> headers = {'Content-Type': 'application/json'};
 
     final Uri url = Uri.parse('http://localhost:8000/signup_patient');
 
     final String jsonData = json.encode({
-      'name': name,
-      'contact': contact,
-      'age': age,
-      'city': city,
+      'username': username,
+      'password': password,
+      'confirm_password': confirmPassword,
     });
 
     final http.Response response =
         await http.post(url, headers: headers, body: jsonData);
 
     if (response.statusCode == 200) {
-      _showSnackbar('Patient added successfully', ContentType.success);
+      _showSnackbar('Patient signed up successfully', ContentType.success);
       Navigator.pushReplacementNamed(context, '/homepage');
     } else {
       _showSnackbar('Error: ${response.statusCode}', ContentType.failure);
@@ -90,23 +93,21 @@ class _SignupPatientScreenState extends State<SignupPatientScreen> {
                     ),
                     const SizedBox(height: 20.0),
                     TextField(
-                      controller: _nameController,
-                      decoration: const InputDecoration(labelText: 'Name'),
+                      controller: _usernameController,
+                      decoration: const InputDecoration(labelText: 'Username'),
                     ),
                     const SizedBox(height: 10.0),
                     TextField(
-                      controller: _contactController,
-                      decoration: const InputDecoration(labelText: 'Contact'),
+                      controller: _passwordController,
+                      decoration: const InputDecoration(labelText: 'Password'),
+                      obscureText: true,
                     ),
                     const SizedBox(height: 10.0),
                     TextField(
-                      controller: _ageController,
-                      decoration: const InputDecoration(labelText: 'Age'),
-                    ),
-                    const SizedBox(height: 10.0),
-                    TextField(
-                      controller: _cityController,
-                      decoration: const InputDecoration(labelText: 'City'),
+                      controller: _confirmPasswordController,
+                      decoration:
+                          const InputDecoration(labelText: 'Confirm Password'),
+                      obscureText: true,
                     ),
                     const SizedBox(height: 20.0),
                     ElevatedButton(

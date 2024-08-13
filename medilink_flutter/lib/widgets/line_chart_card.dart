@@ -16,7 +16,7 @@ class LineChartCard extends StatelessWidget {
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           const Text(
-            "Steps Overview",
+            "Blood Pressure Overview",
             style: TextStyle(fontSize: 14, fontWeight: FontWeight.w500),
           ),
           const SizedBox(height: 20),
@@ -61,7 +61,7 @@ class LineChartCard extends StatelessWidget {
                             : const SizedBox();
                       },
                       showTitles: true,
-                      interval: 1,
+                      interval: 20,
                       reservedSize: 40,
                     ),
                   ),
@@ -71,30 +71,56 @@ class LineChartCard extends StatelessWidget {
                   LineChartBarData(
                     color: selectionColor,
                     barWidth: 2.5,
-                    belowBarData: BarAreaData(
-                      gradient: LinearGradient(
-                        begin: Alignment.topCenter,
-                        end: Alignment.bottomCenter,
-                        colors: [
-                          selectionColor.withOpacity(0.5),
-                          Colors.transparent
-                        ],
-                      ),
-                      show: true,
-                    ),
+                    belowBarData: BarAreaData(show: false),
                     dotData: FlDotData(show: false),
-                    spots: data.spots,
-                  )
+                    spots: data.systolicSpots,
+                    // Add the legend label for systolic
+                  ),
+                  LineChartBarData(
+                    color: Colors.redAccent,
+                    barWidth: 2.5,
+                    belowBarData: BarAreaData(show: false),
+                    dotData: FlDotData(show: false),
+                    spots: data.diastolicSpots,
+                    // Add the legend label for diastolic
+                  ),
                 ],
                 minX: 0,
                 maxX: 120,
-                maxY: 105,
-                minY: -5,
+                maxY: 160,
+                minY: 0,
               ),
             ),
           ),
+          const SizedBox(height: 20),
+          // Add the legend widget
+          Row(
+            mainAxisAlignment: MainAxisAlignment.start,
+            children: [
+              _buildLegendBox(selectionColor, 'Systolic'),
+              const SizedBox(width: 10),
+              _buildLegendBox(Colors.redAccent, 'Diastolic'),
+            ],
+          ),
         ],
       ),
+    );
+  }
+
+  Widget _buildLegendBox(Color color, String label) {
+    return Row(
+      children: [
+        Container(
+          width: 16,
+          height: 16,
+          color: color,
+        ),
+        const SizedBox(width: 8),
+        Text(
+          label,
+          style: const TextStyle(fontSize: 14, color: Colors.white),
+        ),
+      ],
     );
   }
 }

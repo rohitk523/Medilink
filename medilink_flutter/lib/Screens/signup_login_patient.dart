@@ -28,7 +28,7 @@ class _SignupLoginPatientState extends State<SignupLoginPatient> {
       body: Center(
         child: _isSignUp
             ? const SignupPatientScreen()
-            : const LogInPatientScreen(),
+            : const LoginPatientScreen(),
       ),
       floatingActionButton: FloatingActionButton(
         onPressed: toggleSignupLogin,

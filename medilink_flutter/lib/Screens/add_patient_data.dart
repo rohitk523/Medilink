@@ -2,52 +2,44 @@ import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
 import 'dart:convert';
 import 'package:awesome_snackbar_content/awesome_snackbar_content.dart';
-import 'package:medilink_flutter/Screens/add_patient_data.dart';
 
-class SignupPatientScreen extends StatefulWidget {
-  const SignupPatientScreen({Key? key}) : super(key: key);
+class AddPatientDataScreen extends StatefulWidget {
+  final String username; // Receive the username from the previous screen
+
+  const AddPatientDataScreen({Key? key, required this.username})
+      : super(key: key);
 
   @override
-  _SignupPatientScreenState createState() => _SignupPatientScreenState();
+  _AddPatientDataScreenState createState() => _AddPatientDataScreenState();
 }
 
-class _SignupPatientScreenState extends State<SignupPatientScreen> {
-  final TextEditingController _usernameController = TextEditingController();
-  final TextEditingController _passwordController = TextEditingController();
-  final TextEditingController _confirmPasswordController =
-      TextEditingController();
+class _AddPatientDataScreenState extends State<AddPatientDataScreen> {
+  final TextEditingController _dobController = TextEditingController();
+  final TextEditingController _heightController = TextEditingController();
+  final TextEditingController _weightController = TextEditingController();
 
-  Future<void> _submitForm() async {
-    final String username = _usernameController.text.trim();
-    final String password = _passwordController.text.trim();
-    final String confirmPassword = _confirmPasswordController.text.trim();
-
-    // Check if password and confirm password match
-    if (password != confirmPassword) {
-      _showSnackbar('Passwords do not match', ContentType.failure);
-      return;
-    }
+  Future<void> _submitData() async {
+    final String dob = _dobController.text.trim();
+    final String height = _heightController.text.trim();
+    final String weight = _weightController.text.trim();
 
     final Map<String, String> headers = {'Content-Type': 'application/json'};
 
-    final Uri url = Uri.parse('http://localhost:8000/signup_patient');
+    final Uri url =
+        Uri.parse('http://localhost:8000/add_patient_data/${widget.username}');
 
     final String jsonData = json.encode({
-      'username': username,
-      'password': password,
-      'confirm_password': confirmPassword,
+      'dob': dob.isEmpty ? null : dob,
+      'height': height.isEmpty ? null : height,
+      'weight': weight.isEmpty ? null : weight,
     });
 
     final http.Response response =
         await http.post(url, headers: headers, body: jsonData);
 
     if (response.statusCode == 200) {
-      _showSnackbar('Patient signed up successfully', ContentType.success);
-      Navigator.pushReplacementNamed(
-        context,
-        '/addPatientData',
-        arguments: username, // Pass the username
-      );
+      _showSnackbar('Patient data added successfully', ContentType.success);
+      Navigator.pushReplacementNamed(context, '/homepage');
     } else {
       _showSnackbar('Error: ${response.statusCode}', ContentType.failure);
     }
@@ -72,7 +64,7 @@ class _SignupPatientScreenState extends State<SignupPatientScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text('Signup Patient'),
+        title: const Text('Add Patient Data'),
       ),
       body: Center(
         child: Row(
@@ -92,32 +84,30 @@ class _SignupPatientScreenState extends State<SignupPatientScreen> {
                   mainAxisSize: MainAxisSize.min,
                   children: [
                     const Text(
-                      'Signup',
+                      'Add Additional Information',
                       style:
                           TextStyle(fontSize: 24, fontWeight: FontWeight.bold),
                     ),
                     const SizedBox(height: 20.0),
                     TextField(
-                      controller: _usernameController,
-                      decoration: const InputDecoration(labelText: 'Username'),
-                    ),
-                    const SizedBox(height: 10.0),
-                    TextField(
-                      controller: _passwordController,
-                      decoration: const InputDecoration(labelText: 'Password'),
-                      obscureText: true,
-                    ),
-                    const SizedBox(height: 10.0),
-                    TextField(
-                      controller: _confirmPasswordController,
+                      controller: _dobController,
                       decoration:
-                          const InputDecoration(labelText: 'Confirm Password'),
-                      obscureText: true,
+                          const InputDecoration(labelText: 'Date of Birth'),
+                    ),
+                    const SizedBox(height: 10.0),
+                    TextField(
+                      controller: _heightController,
+                      decoration: const InputDecoration(labelText: 'Height'),
+                    ),
+                    const SizedBox(height: 10.0),
+                    TextField(
+                      controller: _weightController,
+                      decoration: const InputDecoration(labelText: 'Weight'),
                     ),
                     const SizedBox(height: 20.0),
                     ElevatedButton(
-                      onPressed: _submitForm,
-                      child: const Text('Signup'),
+                      onPressed: _submitData,
+                      child: const Text('Submit'),
                     ),
                   ],
                 ),

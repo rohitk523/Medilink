@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:medilink_flutter/Screens/add_patient_data.dart';
 import 'package:medilink_flutter/Screens/main_screen.dart';
 import 'package:medilink_flutter/Screens/profile_info_patient.dart';
 import 'package:medilink_flutter/Screens/signup_login_patient.dart';
@@ -20,6 +21,18 @@ class MyApp extends StatelessWidget {
         visualDensity: VisualDensity.adaptivePlatformDensity,
       ),
       initialRoute: '/',
+      onGenerateRoute: (settings) {
+        if (settings.name == '/addPatientData') {
+          final String username = settings.arguments as String;
+          return MaterialPageRoute(
+            builder: (context) {
+              return AddPatientDataScreen(username: username);
+            },
+          );
+        }
+        // Add other routes if needed
+        return null;
+      },
       routes: {
         '/': (context) => const SignupLoginPatient(),
         '/homepage': (context) => const MainScreen(),

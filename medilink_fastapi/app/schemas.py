@@ -18,10 +18,10 @@ class PatientCreate(BaseModel):
         orm_mode = True
 
 
-class PatientData(PatientCreate):
-    dob: str
-    height: str
-    weight: str
+class PatientData(BaseModel):
+    dob: Optional[str] = None
+    height: Optional[str] = None
+    weight: Optional[str] = None
 
     class Config:
         orm_mode = True

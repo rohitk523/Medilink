@@ -36,13 +36,29 @@ def create_patient(db: Session, patient: PatientData):
     
     db_patient = Patient(
         username=patient.username,
-        password=hashed_password,
-        dob=patient.dob,
-        height=patient.height,
-        weight=patient.weight
+        password=hashed_password
     )
     
     db.add(db_patient)
+    db.commit()
+    db.refresh(db_patient)
+    
+    return db_patient
+
+def add_patient_data(username: str, patient: PatientData, db: Session):
+    db_patient = db.query(Patient).filter(Patient.username == username).first()
+    
+    if not db_patient:
+        raise HTTPException(status_code=404, detail="Patient not found")
+
+    # Update fields only if they are provided (i.e., not None)
+    if patient.dob is not None:
+        db_patient.dob = patient.dob
+    if patient.height is not None:
+        db_patient.height = patient.height
+    if patient.weight is not None:
+        db_patient.weight = patient.weight
+    
     db.commit()
     db.refresh(db_patient)
     

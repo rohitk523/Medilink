@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:medilink_flutter/Screens/Visit/patient_history.dart';
 import 'package:medilink_flutter/Screens/patient/add_patient_data.dart';
 import 'package:medilink_flutter/Screens/patient/patient_main_screen.dart';
 import 'package:medilink_flutter/Screens/patient/profile_info_patient.dart';
@@ -38,6 +39,7 @@ class MyApp extends StatelessWidget {
         '/homepage': (context) => const PatientMainScreen(),
         '/login': (context) => const SignupLoginPatient(),
         '/profile': (context) => const ProfileInfoScreen(),
+        '/history': (context) => const PatientHistoryScreen()
       },
     );
   }

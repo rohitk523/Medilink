@@ -62,6 +62,8 @@ class _SideMenuWidgetState extends State<SideMenuWidget> {
             );
           } else if (menuItem.title == 'Profile') {
             Navigator.pushNamed(context, '/profile');
+          } else if (menuItem.title == 'History') {
+            Navigator.pushNamed(context, '/history');
           }
         },
         child: Row(

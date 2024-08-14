@@ -67,3 +67,26 @@ def add_patient_data(username: str, patient: PatientData, db: Session):
 
 def get_doctors(db: Session):
     return db.query(models.Doctor).all()
+
+
+def create_visit(db: Session, visit: schemas.VisitCreate):
+    db_visit = models.Visit(
+        patient_id=visit.patient_id,
+        weight=visit.weight,
+        height=visit.height,
+        BP=visit.BP,
+        Sugar=visit.Sugar,
+        Symptoms=visit.Symptoms,
+        Disease=visit.Disease,
+        prescription=visit.prescription
+    )
+    db.add(db_visit)
+    db.commit()
+    db.refresh(db_visit)
+    return db_visit
+
+def get_visits(db: Session, skip: int = 0, limit: int = 10):
+    return db.query(models.Visit).offset(skip).limit(limit).all()
+
+def get_visit(db: Session, visit_id: str):
+    return db.query(models.Visit).filter(models.Visit.id == visit_id).first()

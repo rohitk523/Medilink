@@ -20,3 +20,21 @@ class Patient(Base):
     height = Column(String, nullable=True) # Allow NULL values
     weight = Column(String, nullable=True) # Allow NULL values
 
+    # Relationship to visits
+    visits = relationship("Visit", back_populates="patient")
+
+
+class Visit(Base):
+    __tablename__ = "visits"
+
+    id = Column(String, primary_key=True, index=True, default=lambda: str(uuid.uuid4()))
+    patient_id = Column(String, ForeignKey("patients.id"), nullable=False)
+    weight = Column(String, nullable=True)
+    height = Column(String, nullable=True)
+    BP = Column(String, nullable=True)
+    Sugar = Column(String, nullable=True)
+    Symptoms = Column(String, nullable=True)
+    Disease = Column(String, nullable=True)
+    prescription = Column(String, nullable=True)
+
+    patient = relationship("Patient", back_populates="visits")

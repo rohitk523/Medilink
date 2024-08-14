@@ -34,3 +34,19 @@ class PatientLogin(BaseModel):
     class Config:
         orm_mode = True
 
+
+class VisitCreate(BaseModel):
+    patient_id: str
+    weight: Optional[str] = None
+    height: Optional[str] = None
+    BP: Optional[str] = None
+    Sugar: Optional[str] = None
+    Symptoms: Optional[str] = None
+    Disease: Optional[str] = None
+    prescription: Optional[str] = None
+
+    class Config:
+        orm_mode = True
+
+class Visit(VisitCreate):
+    id: str

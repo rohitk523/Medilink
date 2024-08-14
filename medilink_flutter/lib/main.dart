@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
-import 'package:medilink_flutter/Screens/add_patient_data.dart';
-import 'package:medilink_flutter/Screens/main_screen.dart';
-import 'package:medilink_flutter/Screens/profile_info_patient.dart';
-import 'package:medilink_flutter/Screens/signup_login_patient.dart';
+import 'package:medilink_flutter/Screens/patient/add_patient_data.dart';
+import 'package:medilink_flutter/Screens/patient_main_screen.dart';
+import 'package:medilink_flutter/Screens/patient/profile_info_patient.dart';
+import 'package:medilink_flutter/Screens/patient/signup_login_patient.dart';
 
 void main() {
   runApp(const MyApp());
@@ -35,7 +35,7 @@ class MyApp extends StatelessWidget {
       },
       routes: {
         '/': (context) => const SignupLoginPatient(),
-        '/homepage': (context) => const MainScreen(),
+        '/homepage': (context) => const PatientMainScreen(),
         '/login': (context) => const SignupLoginPatient(),
         '/profile': (context) => const ProfileInfoScreen(),
       },

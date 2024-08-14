@@ -4,8 +4,8 @@ import 'package:medilink_flutter/widgets/side_menu_widget.dart';
 import 'package:medilink_flutter/widgets/summary_widget.dart';
 import 'package:flutter/material.dart';
 
-class MainScreen extends StatelessWidget {
-  const MainScreen({super.key});
+class PatientMainScreen extends StatelessWidget {
+  const PatientMainScreen({super.key});
 
   @override
   Widget build(BuildContext context) {

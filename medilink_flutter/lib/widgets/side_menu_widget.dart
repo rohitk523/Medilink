@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:medilink_flutter/Screens/signup_login_patient.dart';
 import 'package:medilink_flutter/const/constant.dart';
 import 'package:medilink_flutter/data/side_menu_data.dart';
 import 'package:medilink_flutter/model/menu_model.dart';
@@ -52,7 +53,13 @@ class _SideMenuWidgetState extends State<SideMenuWidget> {
 
           // Special case for LogOut: perform navigation to login page
           if (menuItem.title == 'LogOut') {
-            Navigator.pushNamed(context, '/login');
+            Navigator.pushAndRemoveUntil(
+              context,
+              MaterialPageRoute(
+                  builder: (context) => const SignupLoginPatient()),
+              (Route<dynamic> route) =>
+                  false, // This condition removes all the previous routes
+            );
           } else if (menuItem.title == 'Profile') {
             Navigator.pushNamed(context, '/profile');
           }

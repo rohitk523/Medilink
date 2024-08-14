@@ -52,9 +52,9 @@ class _SideMenuWidgetState extends State<SideMenuWidget> {
 
           // Special case for LogOut: perform navigation to login page
           if (menuItem.title == 'LogOut') {
-            Navigator.pushReplacementNamed(context, '/login');
+            Navigator.pushNamed(context, '/login');
           } else if (menuItem.title == 'Profile') {
-            Navigator.pushReplacementNamed(context, '/profile');
+            Navigator.pushNamed(context, '/profile');
           }
         },
         child: Row(

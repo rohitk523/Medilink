@@ -37,7 +37,7 @@ class _LoginPatientScreenState extends State<LoginPatientScreen> {
         final String token = responseData['access_token'];
         await _saveToken(token);
         _showSnackbar('Login successful', ContentType.success);
-        Navigator.pushReplacementNamed(context, '/homepage');
+        Navigator.pushNamed(context, '/homepage');
       } else {
         _showSnackbar('Error: ${response.statusCode}', ContentType.failure);
       }

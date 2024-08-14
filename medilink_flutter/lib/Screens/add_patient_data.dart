@@ -39,7 +39,7 @@ class _AddPatientDataScreenState extends State<AddPatientDataScreen> {
 
     if (response.statusCode == 200) {
       _showSnackbar('Patient data added successfully', ContentType.success);
-      Navigator.pushReplacementNamed(context, '/homepage');
+      Navigator.pushNamed(context, '/homepage');
     } else {
       _showSnackbar('Error: ${response.statusCode}', ContentType.failure);
     }

@@ -30,7 +30,7 @@ class _SignupDocScreenState extends State<SignupDocScreen> {
 
     if (response.statusCode == 200) {
       _showSnackbar('Doctor added successfully', ContentType.success);
-      Navigator.pushReplacementNamed(context, '/signup_login_patient');
+      Navigator.pushNamed(context, '/signup_login_patient');
     } else {
       _showSnackbar('Error: ${response.statusCode}', ContentType.failure);
     }

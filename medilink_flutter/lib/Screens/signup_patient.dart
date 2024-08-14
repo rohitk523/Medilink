@@ -43,7 +43,7 @@ class _SignupPatientScreenState extends State<SignupPatientScreen> {
 
     if (response.statusCode == 200) {
       _showSnackbar('Patient signed up successfully', ContentType.success);
-      Navigator.pushReplacementNamed(
+      Navigator.pushNamed(
         context,
         '/addPatientData',
         arguments: username, // Pass the username

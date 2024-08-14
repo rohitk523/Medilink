@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:medilink_flutter/Screens/login_patient.dart';
-import 'package:medilink_flutter/Screens/signup_patient.dart';
+import 'package:medilink_flutter/Screens/patient/login_patient.dart';
+import 'package:medilink_flutter/Screens/patient/signup_patient.dart';
 
 class SignupLoginPatient extends StatefulWidget {
   const SignupLoginPatient({super.key});

@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:medilink_flutter/Screens/signup_doc.dart';
-import 'package:medilink_flutter/Screens/login_doc.dart';
+import 'package:medilink_flutter/Screens/doctor/signup_doc.dart';
+import 'package:medilink_flutter/Screens/doctor/login_doc.dart';
 
 class SignupLoginDoc extends StatefulWidget {
   const SignupLoginDoc({Key? key}) : super(key: key);

@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:medilink_flutter/Screens/signup_login_patient.dart';
+import 'package:medilink_flutter/Screens/patient/signup_login_patient.dart';
 import 'package:medilink_flutter/const/constant.dart';
 import 'package:medilink_flutter/data/side_menu_data.dart';
 import 'package:medilink_flutter/model/menu_model.dart';

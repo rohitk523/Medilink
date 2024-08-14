@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
 import 'dart:convert';
 import 'package:awesome_snackbar_content/awesome_snackbar_content.dart';
-import 'package:medilink_flutter/Screens/add_patient_data.dart';
+import 'package:medilink_flutter/Screens/patient/add_patient_data.dart';
 
 class SignupPatientScreen extends StatefulWidget {
   const SignupPatientScreen({Key? key}) : super(key: key);

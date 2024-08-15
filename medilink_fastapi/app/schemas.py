@@ -50,3 +50,11 @@ class VisitCreate(BaseModel):
 
 class Visit(VisitCreate):
     id: str
+
+
+class BPData(BaseModel):
+    bp: Optional[str] = None
+    date: Optional[str] = None
+
+    class Config:
+        orm_mode = True

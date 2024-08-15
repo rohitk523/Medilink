@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:medilink_flutter/Screens/Visit/bp_line_chart.dart';
 import 'package:medilink_flutter/Screens/Visit/patient_history.dart';
 import 'package:medilink_flutter/Screens/patient/add_patient_data.dart';
 import 'package:medilink_flutter/Screens/patient/patient_main_screen.dart';
@@ -35,6 +36,7 @@ class MyApp extends StatelessWidget {
         return null;
       },
       routes: {
+        // '/': (context) => const BPChartScreen(),
         '/': (context) => const SignupLoginPatient(),
         '/homepage': (context) => const PatientMainScreen(),
         '/login': (context) => const SignupLoginPatient(),

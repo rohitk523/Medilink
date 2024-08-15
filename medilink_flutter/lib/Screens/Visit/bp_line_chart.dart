@@ -11,7 +11,8 @@ class BPChartScreen extends StatefulWidget {
 }
 
 class _BPChartScreenState extends State<BPChartScreen> {
-  List<FlSpot> _bpData = [];
+  List<FlSpot> _systolicData = [];
+  List<FlSpot> _diastolicData = [];
 
   @override
   void initState() {
@@ -20,21 +21,27 @@ class _BPChartScreenState extends State<BPChartScreen> {
   }
 
   Future<void> _fetchBPData() async {
-    final response =
-        await http.get(Uri.parse('http://localhost:8000/dashboard/bp_data'));
-
+    final response = await http.get(Uri.parse('http://127.0.0.1:8000/bp_data'));
     if (response.statusCode == 200) {
       final List<dynamic> data = json.decode(response.body);
 
-      List<FlSpot> bpData = data.asMap().entries.map((entry) {
-        int index = entry.key;
-        Map<String, dynamic> item = entry.value;
-        double bp = double.tryParse(item['bp']) ?? 0.0;
-        return FlSpot(index.toDouble(), bp);
-      }).toList();
+      List<FlSpot> systolicData = [];
+      List<FlSpot> diastolicData = [];
+
+      for (int i = 0; i < data.length; i++) {
+        final bp = data[i]['bp'].split('/');
+        if (bp.length == 2) {
+          double systolic = double.tryParse(bp[0]) ?? 0.0;
+          double diastolic = double.tryParse(bp[1]) ?? 0.0;
+
+          systolicData.add(FlSpot(i.toDouble(), systolic));
+          diastolicData.add(FlSpot(i.toDouble(), diastolic));
+        }
+      }
 
       setState(() {
-        _bpData = bpData;
+        _systolicData = systolicData;
+        _diastolicData = diastolicData;
       });
     } else {
       // Handle the error
@@ -63,12 +70,22 @@ class _BPChartScreenState extends State<BPChartScreen> {
             borderData: FlBorderData(show: true),
             lineBarsData: [
               LineChartBarData(
-                spots: _bpData,
+                spots: _systolicData,
                 isCurved: true,
-                colors: [Colors.blue],
+                color: Colors.red,
+                barWidth: 3,
+                belowBarData:
+                    BarAreaData(show: true, color: Colors.red.withOpacity(0.3)),
+                dotData: FlDotData(show: true),
+              ),
+              LineChartBarData(
+                spots: _diastolicData,
+                isCurved: true,
+                color: Colors.blue,
                 barWidth: 3,
                 belowBarData: BarAreaData(
-                    show: true, colors: [Colors.blue.withOpacity(0.3)]),
+                    show: true, color: Colors.blue.withOpacity(0.3)),
+                dotData: FlDotData(show: true),
               ),
             ],
           ),

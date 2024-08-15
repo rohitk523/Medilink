@@ -54,7 +54,6 @@ class Visit(VisitCreate):
 
 class BPData(BaseModel):
     bp: Optional[str] = None
-    date: Optional[str] = None
 
     class Config:
         orm_mode = True

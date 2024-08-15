@@ -3,7 +3,7 @@ from fastapi import FastAPI
 from . import models
 from .database import SessionLocal, engine
 from fastapi.middleware.cors import CORSMiddleware
-from .router import  user_doctor, user_patient, visit
+from .router import  user_doctor, user_patient, visit, dashboard
 from . import auth
 
 models.Base.metadata.create_all(bind=engine)
@@ -14,6 +14,7 @@ app.include_router(user_doctor.router)
 app.include_router(user_patient.router)
 app.include_router(auth.router)
 app.include_router(visit.router)
+app.include_router(dashboard.router)
 
 origins = ['*']
 

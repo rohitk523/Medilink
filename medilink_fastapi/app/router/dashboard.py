@@ -11,12 +11,6 @@ router = APIRouter(
 )
 
 @router.get("/bp_data", response_model=List[BPData])
-def get_bp_data(db: Session = Depends(get_db)):
-    bp_data = db.query(Visit.BP).all()
-    return [{"bp": bp} for bp, in bp_data]
-
-
-@router.get("/bp_data", response_model=List[BPData])
 def get_bp_data(
     db: Session = Depends(get_db),
     current_user: Patient = Depends(get_current_user)

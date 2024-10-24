@@ -1,10 +1,12 @@
 import 'package:flutter/material.dart';
-import 'package:medilink_flutter/Screens/Visit/bp_line_chart.dart';
 import 'package:medilink_flutter/Screens/Visit/patient_history.dart';
 import 'package:medilink_flutter/Screens/patient/add_patient_data.dart';
+import 'package:medilink_flutter/Screens/patient/login_patient.dart';
 import 'package:medilink_flutter/Screens/patient/patient_main_screen.dart';
 import 'package:medilink_flutter/Screens/patient/profile_info_patient.dart';
 import 'package:medilink_flutter/Screens/patient/signup_login_patient.dart';
+import 'package:medilink_flutter/Screens/patient/signup_patient.dart';
+import 'package:medilink_flutter/widgets/dashboard_widget.dart';
 
 void main() {
   runApp(const MyApp());
@@ -36,12 +38,10 @@ class MyApp extends StatelessWidget {
         return null;
       },
       routes: {
-        // '/': (context) => const BPChartScreen(),
         '/': (context) => const SignupLoginPatient(),
+        '/login': (context) => const LoginPatientScreen(),
+        '/signup': (context) => const SignupPatientScreen(),
         '/homepage': (context) => const PatientMainScreen(),
-        '/login': (context) => const SignupLoginPatient(),
-        '/profile': (context) => const ProfileInfoScreen(),
-        '/history': (context) => const PatientHistoryScreen()
       },
     );
   }

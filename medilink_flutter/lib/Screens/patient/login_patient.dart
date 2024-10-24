@@ -214,7 +214,7 @@ class _LoginPatientScreenState extends State<LoginPatientScreen> {
                         ),
                         TextButton(
                           onPressed: () {
-                            // Add navigation to sign up page
+                            Navigator.pushReplacementNamed(context, '/signup');
                           },
                           child: const Text(
                             'Sign Up',

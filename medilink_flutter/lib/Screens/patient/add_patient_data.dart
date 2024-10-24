@@ -26,7 +26,7 @@ class _AddPatientDataScreenState extends State<AddPatientDataScreen> {
     final Map<String, String> headers = {'Content-Type': 'application/json'};
 
     final Uri url =
-        Uri.parse('http://localhost:8000/add_patient_data/${widget.username}');
+        Uri.parse('http://10.0.2.2:8000/add_patient_data/${widget.username}');
 
     final String jsonData = json.encode({
       'dob': dob.isEmpty ? null : dob,

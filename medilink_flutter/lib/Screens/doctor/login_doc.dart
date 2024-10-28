@@ -1,10 +1,12 @@
+// ignore_for_file: library_private_types_in_public_api
+
 import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
 import 'dart:convert';
 import 'package:awesome_snackbar_content/awesome_snackbar_content.dart';
 
 class LoginDocScreen extends StatefulWidget {
-  const LoginDocScreen({Key? key}) : super(key: key);
+  const LoginDocScreen({super.key});
 
   @override
   _LoginDocScreenState createState() => _LoginDocScreenState();

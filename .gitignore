@@ -1,2 +1,6 @@
 medilink_fastapi/app/router/login.py
 **/__pycache__/
+.pytest_cache
+medilink_fastapi/medenv
+**/.pytest_cache/
+**/.DS_Store
